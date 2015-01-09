@@ -1,0 +1,14 @@
+core/controller
+
+core/controllers/Home
+                  |
+                Master
+
+core/controllers/models
+                   |
+                 Conekta
+                   |
+                 Usuarios
+
+
+view home

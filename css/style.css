@@ -1,0 +1,646 @@
+/***********
+
+* Estilos  *
+
+************/
+
+/*****************
+
+* Estilos Header *
+
+******************/
+
+.banner img {
+  display: block;
+  margin: 0 auto;
+}
+
+
+/*************
+* Inicio     *
+**************/
+
+.formularioRegistro{
+	margin: 20px;
+}
+
+.tituloFormulario{
+font-size: 18px;
+margin: 10px;
+}
+
+.campo-nombre{
+font-size: 16px;
+font-weight: bold;
+}
+
+label.error{
+	color: red;
+	font-size: 12px;
+	float: right; 
+}
+
+.mensajeMail{
+	color: gray;
+	font-size: 12px;
+	text-align: right; 
+}
+
+.mensajeMailExistente, .noRegistrado{
+  color: red;
+  font-size: 14px;
+  text-align: left;
+  display: none; 
+}
+
+
+
+
+
+
+.mensajeFmtri p{
+	color: gray;
+	font-size: 12px;
+	text-align: justify;
+}
+
+.btns-container{
+	float: right;
+}
+
+.form-control{
+	margin-bottom: 12px;
+	background-color: #E7E7E8;
+}
+
+/*****************
+
+* Inicio     *
+
+******************/
+
+.pasos img{
+ width: 706px;
+height: 44px;
+margin: 0px 213px;
+
+}
+
+
+.tipoPago{
+	margin: 10px 120px;
+}
+
+.formularioPago{
+	margin: 10px  150px;
+}
+
+.compraSegura img{
+	width: 682px;
+	height: 48px;
+	margin-left: -100px;
+	margin-top: 14px;
+}
+
+
+.oxxo{
+  margin: 20px 0px;
+  display: block;
+}
+
+.logoGeneraOxxo img{
+width: 100px;
+height: 60px;
+margin: 10px;
+}
+
+.oxxo{
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+}
+
+
+
+.tdc{
+  display: block;     
+}
+
+
+
+/*****************
+
+* Inicio     *
+
+******************/
+
+
+
+
+.consultarNumero{
+	margin: 20px 0px; 
+}
+
+.tituloConsultar{
+	text-align: center;
+	font-size: 25px;
+
+}
+
+
+.convocatoriaMenu {
+  background-image: url('../images/convocatoria.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 236px;
+  height: 47px;
+  background-position: 10px -1px;
+}
+.convocatoriaMenu:hover {
+  background-image: url('../images/convocatoriaHover.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 236px;
+  height: 53px;
+  background-position: 10px 0px;
+}
+.convocatoriaMenuActivo {
+  background-image: url('../images/convocatoriaHover.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 236px;
+  height: 53px;
+  background-position: 10px 0px;
+}
+.registroMenu {
+  background-image: url('../images/registro.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 231px;
+  height: 47px;
+  background-position: -33px -1px;
+}
+.registroMenu:hover {
+  background-image: url('../images/registroHover.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 236px;
+  height: 53px;
+  background-position: 10px 0px;
+}
+.registroMenuActivo {
+  background-image: url('../images/registroHover.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 236px;
+  height: 53px;
+  background-position: 10px 0px;
+}
+.alinearContenedor {
+  padding-left: 65px;
+  margin: 20px 5px;
+}
+.tituloStatus {
+  padding: 49px 5px 10px 25px;
+  text-align: left;
+  font-size: 16px;
+}
+.detallesPago {
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+.tituloContenedor {
+  color: red;
+  font-size: 18px;
+}
+.numeroCompetidor {
+  margin-left: 25px;
+}
+
+
+
+.numeroCompetidor span {
+  font-size: 30px;
+  margin: 10px 0px;
+}
+.textoContenedor {
+  margin: 20px 21px 10px 20px;
+  padding: 10px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.datosCompetidor {
+  margin: 5px 0px 5px 20px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+  float: left;
+}
+
+.pagoExitotxt {
+  margin-left: 25px;
+  font-size: 18px;
+}
+
+.pago{
+ margin-left: 25px;
+}
+.inscripcionCosto{
+	margin: 5px 0px 5px 30px;
+	font-size: 14px;
+}
+
+.datosPago span{
+float: right;
+}
+
+.datosPagoPayu span{
+float: right;
+}
+
+.datosPagoPayu{
+  border-bottom: 1px solid #000;
+}
+
+
+
+.servicio{
+	margin: 5px 0px 5px 30px;
+	font-size: 14px;
+}
+.afiliacion{
+	margin: 5px 0px 5px 30px;
+	font-size: 14px;
+}
+
+.detallesPayu{
+  margin: 5px 0px 5px 30px;
+  font-size: 14px; 
+}
+
+.detallesPayu span{
+  margin-left: 5px;
+}
+
+
+.total{
+	margin: 15px 0px 40px 30px;
+font-size: 18px;
+height: 18px;
+border-top: 1px solid #000;
+padding: 10px;
+font-weight: bold;
+}
+
+
+.totalTexto{
+font-size: 25px;
+color: red;
+font-weight: bold;
+}
+
+.infoPago{
+font-size: 25px;
+color: red;
+font-weight: bold;
+}
+
+
+.pagoEfectivo{
+margin:15px 100px;
+}
+
+.barcode{
+/*SOLO oXXO */
+
+margin:30px 30px 30px -5px;
+
+  /*
+	TIENDAS
+  margin: 30px;
+  */
+
+
+}
+
+.logoEfectivo img{
+
+/* solo oxxo*/
+width: 130px;
+height: 80px;
+
+/*
+COn logo seven
+width: 70px;
+height: 103px;*/
+}
+
+
+
+
+.pieContenedor {
+  margin-top: 20px;
+}
+.pieContenedor img {
+  width: 100px;
+  height: 50px;
+  margin-top: 0px;
+}
+.pieContenedor a {
+  color: lightgray;
+  text-decoration: none;
+}
+.ligapie {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 4px;
+  padding-top: 10px;
+}
+.tangamanga {
+  text-align: left;
+  margin-top: 17px;
+  text-indent: 15px;
+}
+.iniciobtn {
+  background-image: url('../images/inicio.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 225px;
+  height: 43px;
+  float: right;
+}
+.iniciobtn:hover {
+  background-image: url('../images/inicio.png');
+  background-repeat: no-repeat;
+  background-position: 0 -45px;
+  background-size: 100%;
+  width: 225px;
+  height: 43px;
+  float: right;
+}
+.continuarPago {
+  background-image: url('../images/continuarPago.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 300px;
+  height: 36px;
+  float: right;
+}
+.continuarPago:hover {
+  background-image: url('../images/continuarPago.png');
+  background-repeat: no-repeat;
+  background-position: 0 -35px;
+  background-size: 100%;
+  width: 300px;
+  height: 36px;
+  float: right;
+}
+
+.imprimir {
+  background-image: url('../images/imprimir.png');
+background-repeat: no-repeat;
+background-size: 100%;
+width: 191px;
+height: 36px;
+float: right;
+cursor: pointer;
+}
+.imprimir:hover {
+background-image: url('../images/imprimir.png');
+background-repeat: no-repeat;
+background-size: 100%;
+background-position: 0 -36px;
+width: 191px;
+height: 36px;
+float: right;
+cursor: pointer;
+}
+
+
+.iniciaRegistro {
+  background-image: url('../images/registrobtn.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 600px;
+  height: 43px;
+  margin-top: 10px;
+}
+.iniciaRegistro:hover {
+  background-image: url('../images/registrobtn.png');
+  background-repeat: no-repeat;
+  background-position: 0 -44px;
+  background-size: 100%;
+  width: 600px;
+  height: 43px;
+  margin-top: 10px;
+}
+.consultaNumero {
+  background-image: url('../images/comsultapago.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 600px;
+  height: 43px;
+  margin-bottom: 10px;
+}
+.consultaNumero:hover {
+  background-image: url('../images/comsultapago.png');
+  background-repeat: no-repeat;
+  background-position: 0 -44px;
+  background-size: 100%;
+  width: 600px;
+  height: 43px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+.logo img {
+  width: 150px;
+  height: 100px;
+  position: relative;
+  z-index: 100;
+}
+
+
+.menu {
+  background-color: #231f20;
+  padding-left: 160px;
+  height: 44px;
+}
+.paso1btn {
+  position: absolute;
+  top: 0px;
+}
+.paso2btn {
+  position: absolute;
+  top: 0px;
+  left: 406px;
+}
+.paso3btn {
+  position: absolute;
+  top: 0px;
+  left: 800px;
+}
+.paso1 {
+  display: block;
+}
+.paso2 {
+  display: none;
+}
+.paso3 {
+  display: none;
+}
+.comprobarPago {
+  dispay: none;
+}
+.pantalla2 {
+  dispay: none;
+}
+.inscripcionJun img {
+  display: block;
+  margin: 0 auto;
+}
+.lineamientos {
+  padding-left: 65px;
+}
+.lineamientos ol {
+  padding: 15px 40px;
+}
+.lineamientos ol li a {
+  font-size: 16px;
+  color: black;
+  text-decoration: none;
+}
+.lineamientos ol li a:hover {
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+.titulo {
+  font-size: 35px;
+  text-align: left;
+  color: #231f21;
+  padding: 10px 5px;
+  font-weight: bold;
+}
+.informacion {
+  background-color: #e7e8e9;
+  padding-top: 80px;
+  text-align: justify;
+  height: 360px;
+  overflow-y: scroll;
+}
+.informacion span {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.general span {
+  margin-right: 20px;
+  font-weight: bold;
+}
+.categoria {
+  display: none;
+}
+.premiacion {
+  display: none;
+}
+.inscripcion {
+  display: none;
+}
+.inscripcion a {
+  text-decoration: none;
+  font-size: 18px;
+  color: red;
+}
+.derechos {
+  display: none;
+}
+.entrega {
+  display: none;
+}
+.sede {
+  display: none;
+}
+.sede img {
+  margin: 0 auto;
+}
+.ruta {
+  display: none;
+}
+.ruta img {
+  margin: 0 auto;
+}
+.agenda {
+  display: none;
+}
+.reglamento {
+  display: none;
+}
+.sinDrafting {
+  display: none;
+}
+.sinDrafting img {
+  margin: 0 auto;
+}
+.adicionales {
+  display: none;
+}
+.agradecimiento {
+  display: none;
+}
+.footer {
+  background-color: #ee3424;
+  height: 70px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.footer img {
+  padding: 5px;
+}
+
+.patocinadores{
+  margin: 0;
+  padding: 0;
+}
+
+.patocinadores img{
+  display: block;
+  margin: 0 auto;
+
+}
+
+#tarjeta-form {
+  display: none;
+}
+#oxxo-form {
+  display: none;
+}
+
+
+/*******************************
+
+  By vendetta :D
+*******************************/
+
+.clear{
+  clear: both;
+}
+#distancia-hide{
+  display: none;
+}
+
+#card-form{
+  display: none;
+}
+
+#cash-form {
+  display: none;
+}

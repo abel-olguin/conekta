@@ -1,0 +1,78 @@
+
+@media print {
+  
+  .menu, .banner , .pasos{
+    visibility: hidden;
+  }
+
+.noCompetidor , .pagoExitoso{
+  margin-top: -300;
+}
+.noCompetidor a ,  .pagoExitoso a{
+  visibility: hidden;
+
+}
+
+.oxxo{
+  margin-top: -300;
+}
+.oxxo a{
+  visibility: hidden;
+
+}
+
+
+
+.logo{
+  margin-top: -30px;
+}
+
+/*solo Oxxo*/
+.barcode{
+  float: left;
+  margin-left: 160px;
+  margin-top: -40px;
+}
+
+/* tiendas 
+.barcode{
+  float: right;
+  margin-top: -100px;
+}
+*/
+
+.tituloStatus{
+  margin-top: -80px;
+}
+
+.textoContenedor, .tituloContenedor { 
+font-size: 10px !important;
+}
+
+.detallesPago{
+margin-top: 15px;
+height: 200px;
+}
+
+.datosCompetidor{
+font-size: 10px;
+margin: 2px 40px;
+width: 400px;   
+}
+
+.textoContenedor{
+  margin-top: -6px;
+}
+
+.textoContenedor p:first-child{
+  width: 900px;
+
+}
+
+.tangamanga{
+  float: right;
+  margin-top: -40px;
+}
+
+
+}
