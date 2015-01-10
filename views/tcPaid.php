@@ -1,11 +1,4 @@
-<?php
-if($_SESSION){
-extract($_SESSION["variables"]); 
-?>
-
-
-
-	<div class="col-md-12">
+<div class="col-md-12">
 		<span><?= $error_code;?></span>
 	</div>
 
@@ -14,13 +7,8 @@ extract($_SESSION["variables"]);
 
 		<section class="col-md-12 ">
 				 <div class="textoConsulta">
-				<div class="col-md-10 tituloStatus">Felicidades <strong><?php echo ucwords($nombre); ?></strong></div>
+				<div class="col-md-10 tituloStatus">Felicidades <strong><?= ucwords($nombre); ?></strong></div>
 				<div class="col-md-10 numeroCompetidor">
-					
-					<p>Estas inscrito para participar con el número de folio</p>
-					<span><strong><?= $numero;?></strong></span>
-					<p>Nivel de juego</p>
-					<p><strong><?= $nivel?></strong></p>
 
 				</div>
 				</div>
@@ -31,8 +19,8 @@ extract($_SESSION["variables"]);
 					<div class="col-md-12 textoContenedor">
 						<p>*Los datos que ingresaste y registramos para enviarte un email de confirmación de participación son: </p>
 
-						<div class="col-md-6 datosCompetidor"><?php echo ucwords($correo); ?></div>
-						<div class="col-md-6 datosCompetidor"><?php echo ucwords($nombre); ?></div>
+						<div class="col-md-6 datosCompetidor"><?= ucwords($correo); ?></div>
+						<div class="col-md-6 datosCompetidor"><?= ucwords($nombre); ?></div>
 						
 						
 					</div>
@@ -43,8 +31,3 @@ extract($_SESSION["variables"]);
 			</div>
 					
 			</section>
-<?php
-
-}
-
-?>

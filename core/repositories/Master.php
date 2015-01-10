@@ -6,13 +6,42 @@
  * Time: 10:55 PM
  */
 
-class repositories_Master extends repositories_ConektaFunctions{
+class repositories_Master {
 
-    protected $values;
-    protected $models;
+   protected $objects;
 
     public function __construct(){
 
+    }
+
+    /**
+     * @param $string
+     *
+     * Carga un repositorio
+     *
+     * Funcion encargada de leer un repositorio
+     * y todas sus funciones
+     */
+    public function load_repo($string)
+    {
+        $newClass = new $string();
+
+        $this->{$string} = $newClass;
+    }
+
+    /**
+     * @param $string
+     *
+     * cargar un modelo
+     *
+     * Funcion encargada de leer un modelo
+     * y permitir el uso de todos sus metodos
+     */
+    public function load_model($string)
+    {
+        $newClass = new $string();
+
+        $this->{$string} = $newClass;
     }
 
     /**
@@ -49,8 +78,11 @@ class repositories_Master extends repositories_ConektaFunctions{
         }
         else if($_SESSION)
         {
+
             extract($_SESSION['vars']);
-            var_dump($_SESSION);
+
+            session_start();
+            session_regenerate_id();
             session_destroy();
         }
         if($this->values)
@@ -63,31 +95,28 @@ class repositories_Master extends repositories_ConektaFunctions{
         $this->values = '';
     }
 
+    /**
+     * @param $set
+     * @param array $vars
+     *
+     * Redirige a una funcion
+     *
+     * Funcion encargada de redirigir si se envian variables
+     * se guardan en una sesion para posteriormente ser destruidas
+     * al llegar a la vista
+     */
     protected function redirect_run($set,array $vars)
     {
         session_start();
         $_SESSION['vars'] = $vars;
+
         header("Location: inscripcion.php?set=controllers_Content&run=$set");
 
         die();
     }
 
-    /**
-     * @param $string
-     *
-     * Carga un modelo
-     *
-     * Funcion encargada de cargar un modelo instancia la clase del modelo con autoload
-     * y devuelve un objeto (proximamente)
-     */
-    protected function load_model($string)
-    {
 
 
-        $$string = new $string();
-        echo $$string->insert();
-    }
+}
 
 
-
-} 

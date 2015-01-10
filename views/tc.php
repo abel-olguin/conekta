@@ -1,16 +1,12 @@
-<?php
-if($_SESSION){
-extract($_SESSION["variables"]); 
-?>
 <div class="col-md-12">
-<div class="col-md-12 tituloStatus"><strong> Gracias, <?php echo ucwords ($nombre); ?>:</strong>
+<div class="col-md-12 tituloStatus"><strong> Gracias, <?= ucwords ($nombre); ?>:</strong>
 <span> Te sera enviado un mail al correo que registraste dentro de los tres días hábiles y posteriores a que realices tu pago.</span></div>
 
 					
 
 					<div class="col-md-6 datosPago">
 
-						<div class="col-md-12 totalTexto">Tu total a pagar es de: <?= $pago/100; ?></div>
+						<div class="col-md-12 totalTexto">Tu total a pagar es de: <?= $cantidad_pago/100; ?></div>
 
 					</div>
 
@@ -22,7 +18,7 @@ extract($_SESSION["variables"]);
 
 							<tr>
 								<td>ID verificacion:</td>
-								<td><?= $id;?></td>
+								<td><?= $id_transaccion;?></td>
 							</tr>
 							<tr>
 								<td>Beneficiario:</td>
@@ -50,6 +46,3 @@ extract($_SESSION["variables"]);
 	</div>
 	
 </div>
-<?php
-}
-?>

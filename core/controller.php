@@ -35,7 +35,7 @@ function __autoload($class_name)
     $filename = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
 
     $file = ROOT.$filename;
-var_dump($file);
+
     if ( ! file_exists($file))
     {
         var_dump(array('message'=>'404'));

@@ -26,9 +26,10 @@ class controllers_Content extends repositories_Master{
     public function __construct(){
         parent::__construct();
 
-        $this->usuarios_model = new models_Usuarios();
-        $this->conekta_model  = new models_Conekta();
-        //$this->load_model('models_Usuarios');
+        $this->load_model('models_Usuarios');
+        $this->load_model('models_Conekta');
+        $this->load_repo('repositories_ConektaFunctions');
+
     }
 
     /**
@@ -72,9 +73,9 @@ class controllers_Content extends repositories_Master{
                 'pais'            => $_POST['pais']
             );
 
-            $insert_user    = $this->usuarios_model->insert($data_user);
+            $insert_user    = $this->models_Usuarios->insert($data_user);
 
-            $insert_conekta = $this->conekta_model->insert($data_conekta);
+            $insert_conekta = $this->models_Conekta->insert($data_conekta);
 
             $vars_conekta   = array('id_conekta'=>$insert_conekta['values']['id'],
                 'cantidad_pago'=>$insert_conekta['values']['cantidad_pago']);
@@ -102,6 +103,14 @@ class controllers_Content extends repositories_Master{
         $this->set_view("pago");
     }
 
+    /**
+     * Guarda un pago
+     *
+     * Funcion encargada de guardar un pago es necesario
+     * el id del usuario para completar esta tarea(sin embargo
+     * en la tabla conekta se guardaria la informacion del pago
+     * siempre y cuando coincida con el correo que se envie
+     */
     public function guardar_pago()
     {
         if($_POST)
@@ -116,16 +125,30 @@ class controllers_Content extends repositories_Master{
                 'conekta_id'    => isset($_POST['conektaTokenId'])?$_POST['conektaTokenId']:''
             );
 
-            $conekta_get = $this->procesa_pago($data_user);
-            unset($conekta_get['error_code']);
-            $this->conekta_model->update($_POST['id'],$conekta_get);
+            $conekta_get = $this->repositories_ConektaFunctions->procesa_pago($data_user);
 
-            $this->redirect_run('succes',array_merge($conekta_get,array('id'=>$_POST['id'])));
+            $this->models_Conekta->update($_POST['id'],$conekta_get['data']);
+
+            $result = array_merge($conekta_get['data'],$conekta_get['utils']);
+            $result = array_merge($result,$data_user);
+
+            $this->repositories_ConektaFunctions->set_origen($conekta_get['data']['origen']);
+            $this->repositories_ConektaFunctions->set_status($conekta_get['data']['status']);
+
+            $this->redirect_run('succes',array_merge($result,array('id'=>$_POST['id'])));
         }
         else
         {
             var_dump(array('message'=>'404'));
         }
     }
+
+    public function succes()
+    {
+
+                $this->set_view('success');
+
+    }
+
 
 } 

@@ -1,16 +1,12 @@
-<?php
-if($_SESSION){
-extract($_SESSION["variables"]); 
-?>
 <div class="col-md-12">
-<div class="col-md-12 tituloStatus"><strong> Gracias, <?php echo ucwords ($nombre); ?>:</strong>
+<div class="col-md-12 tituloStatus"><strong> Gracias, <?= ucwords ($nombre); ?>:</strong>
 <span> Te sera enviado un mail al correo que registraste dentro de los tres días hábiles y posteriores a que realices tu pago.</span></div>
 
 					
 
 					<div class="col-md-6 datosPago">
 
-						<div class="col-md-12 totalTexto">Tu total a pagar es de: <?= '$' . $pago/100; ?></div>
+						<div class="col-md-12 totalTexto">Tu total a pagar es de: <?= '$' . $cantidad_pago/100; ?></div>
 
 						<div class="col-md-6 logoEfectivo">
 						Medio de Pago:
@@ -32,22 +28,22 @@ extract($_SESSION["variables"]);
 
 							<tr>
 								<td>ID verificacion:</td>
-								<td><?= $id;?></td>
+								<td><?= id_transaccion;?></td>
 							</tr>
 							<tr>
 								<td>Beneficiario:</td>
-								<td>Fundacion kasparov</td>
+								<td>Tienda</td>
 							</tr>
 							<tr>
 								<td>Fecha de creación:</td>
 								<td>
-								<?= $createAt; ?>
+								<?= $create_at; ?>
 								</td>
 								</tr>
 
 							<tr>
 								<td>Fecha de expiracion:</td>
-								<td><?= substr($expiration,0,2)."-".substr($expiration,2,2)."-".substr($expiration,4,2) ?></td>
+								<td><?= $expiration ?></td>
 							</tr>
 							<tr>
 								<td>Referencia:</td>
@@ -85,31 +81,14 @@ extract($_SESSION["variables"]);
 
 
 
-						<div class="col-md-12 datosCompetidor">email: <?php echo " ".$correo; ?></div>
+						<div class="col-md-12 datosCompetidor">email: <?= $correo; ?></div>
 
-						<div class="col-md-12 datosCompetidor">nombre: <?php echo " ".ucwords ($nombre);?></div>
+						<div class="col-md-12 datosCompetidor">nombre: <?= ucwords ($nombre);?></div>
 						<br>
 						<br>
 						
 					</div>
 					<div style="clear:both;"> </div>
-<div class="aclaraciones">
-						<p>*Aclaración para el pago en ventanilla de la inscripción al Seminario de Capacitación y Certificación para formar Maestros de Ajedrez. El Ajedrez como Herramienta Pedagógica.</p>
-
- 
-						<ul>
-							<li>Al realizar el pago en ventanilla bancaria para cubrir el pago de tu inscripción al Seminario, por favor toma en cuenta lo siguiente:</li>
-							<li>No olvides llevar la presente ficha de pago impresa.</li>
-							<li>Considera que la empresa que recibe el pago de la inscripción se llama NOMBRE CUENTA, y que el beneficiario es FUNDACION KASPAROV.</li>
-
-						</ul>
-
-
-						<p>Siguiendo estos sencillos pasos, se agilizará tu trámite.</p>
-
-						<p>Atentamente, Fundación Kasparov de Ajedrez para Iberoamérica.</p>
-					</div>
-	
 			
 				</div>
 
@@ -117,6 +96,3 @@ extract($_SESSION["variables"]);
 			<div class="botonInicio">
 			<a href="inscripcion.php?accion=home"><div class="col-md-2 iniciobtn">Inicio</div></a>
 			</div>
-			<?php
-}
-			?>
