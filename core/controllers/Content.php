@@ -6,10 +6,17 @@
  * Time: 10:09 PM
  */
 
-class controllers_Content extends controllers_Master{
+/**
+ * Mantengo el require original de conekta pues es una plataforma aparte
+ * que no quiero tocar por si llegase a actualizar asi no causaria ningun
+ * problema subir la nueva version.
+ */
+
+class controllers_Content extends repositories_Master{
 
     private $usuarios_model;
     private $conekta_model;
+
     /**
      * Inicializa modelos y demas
      *
@@ -46,6 +53,9 @@ class controllers_Content extends controllers_Master{
     {
         if($_POST)
         {
+
+            $this->set_view('loading');
+
             $data_user = array(
               'correo'           => $_POST['correo'],
               'nombre'           => $_POST['nombre'],
@@ -66,16 +76,17 @@ class controllers_Content extends controllers_Master{
 
             $insert_conekta = $this->conekta_model->insert($data_conekta);
 
+            $vars_conekta   = array('id_conekta'=>$insert_conekta['values']['id'],
+                'cantidad_pago'=>$insert_conekta['values']['cantidad_pago']);
 
-           if ($insert_user['response'] == true && $insert_conekta['response']==true)
-           {
-               $this->redirect_run('iniciar_pago',$insert_user['values']);
-           }
-            $this->set_view('loading');
+            $this->redirect_run('iniciar_pago',array_merge($insert_user['values'],$vars_conekta));
+
+
         }
         else
         {
             var_dump(array('message'=>'404'));
+
         }
 
     }
@@ -93,6 +104,28 @@ class controllers_Content extends controllers_Master{
 
     public function guardar_pago()
     {
+        if($_POST)
+        {
+            $this->set_view('loading');
 
+            $data_user = array(
+                'nombre'        => $_POST['nombre'],
+                'cantidad_pago' => $_POST['cantidad_pago']."00",
+                'correo'        => $_POST['correo'],
+                'tipo_pago'     => $_POST['tipo_pago'],
+                'conekta_id'    => isset($_POST['conektaTokenId'])?$_POST['conektaTokenId']:''
+            );
+
+            $conekta_get = $this->procesa_pago($data_user);
+            unset($conekta_get['error_code']);
+            $this->conekta_model->update($_POST['id'],$conekta_get);
+
+            $this->redirect_run('succes',array_merge($conekta_get,array('id'=>$_POST['id'])));
+        }
+        else
+        {
+            var_dump(array('message'=>'404'));
+        }
     }
+
 } 

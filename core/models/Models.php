@@ -43,12 +43,48 @@ class models_Models extends \Core{
 
                if($GLOBALS['conexion']->query($sql))
                {
-                    $data = array('response'=>true,'values'=>$args);
+                   $id   = $GLOBALS['conexion']->insert_id;
+                   $args = array_merge($args,array('id'=>$id));
+
+                   $data = array('response'=>true,'values'=>$args);
                }
                 else
                 {
-                    $data = array('response'=>'false','message'=>'La insercion fallo');
+                    die('La insercion no se realizo: '.$GLOBALS['conexion']->connect_errno);
                 }
+        return $data;
+    }
+
+    public function update($id,array $args)
+    {
+
+        $table   = static::$table_name;
+
+
+        $columns = array_keys($args);
+        $values  = [];
+        $vars    = array_values($args);
+
+        for($i = 0; $i<=count($vars)-1; $i++)
+        {
+            $var = $GLOBALS['conexion']->real_escape_string($vars[$i]);
+
+            $var = is_string($var)?("'".$var."'"):$var;
+
+             array_push($values,$columns[$i].'='.$var);
+        }
+
+        $values = implode(',',$values);
+        $sql    = "UPDATE $table SET $values WHERE id LIKE '$id'";
+
+        if($GLOBALS['conexion']->query($sql))
+        {
+            $data = array('response'=>true,'values'=>$args);
+        }
+        else
+        {
+            die('La insercion no se realizo: '.$GLOBALS['conexion']->connect_errno);
+        }
         return $data;
     }
 } 

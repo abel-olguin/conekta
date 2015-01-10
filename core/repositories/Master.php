@@ -6,7 +6,7 @@
  * Time: 10:55 PM
  */
 
-class controllers_Master{
+class repositories_Master extends repositories_ConektaFunctions{
 
     protected $values;
     protected $models;
@@ -50,6 +50,7 @@ class controllers_Master{
         else if($_SESSION)
         {
             extract($_SESSION['vars']);
+            var_dump($_SESSION);
             session_destroy();
         }
         if($this->values)

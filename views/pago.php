@@ -52,30 +52,33 @@
         </div>
 
         <button type="submit" class="btn btn-default">Enviar</button>
-        <input type="hidden" name="tipoPago" value="tc">
+        <input type="hidden" name="tipo_pago" value="card">
         <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
         <input type="hidden" name="correo" value="<?= $correo; ?>">
-        <input type="hidden" name="pago" value="<?= $totalPago; ?>">
+        <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
         <input type="hidden" name="nivel" value="<?= $nivelJuego; ?>">
+        <input type="hidden" name="id" value="<?= $id_conekta; ?>">
     </form>
     <!-- termina el form tarjeta e inicia el de pago en efectivo-->
     <div id="cash-form">
     <form action="inscripcion.php?set=controllers_Content&run=guardar_pago" method="POST" id="cash-form-banorte" >
     <img src="images/banorte.png" style="width:100px;padding:10px 5px;"><br>
-        <input type="hidden" name="tipoPago" value="banorte">
+        <input type="hidden" name="tipo_pago" value="bank">
             <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
-            <input type="hidden" name="pago" value="<?= $totalPago; ?>">
+            <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
+            <input type="hidden" name="id" value="<?= $id_conekta; ?>">
         <button type="submit" class="btn btn-default">Generar</button>
     </form>
 
 <form action="inscripcion.php?set=controllers_Content&run=guardar_pago" method="POST" id="cash-form-oxxo" >
 
             <img src="images/oxxo.png" style="padding:10px 5px;"><br>
-            <input type="hidden" name="tipoPago" value="oxxo">
+            <input type="hidden" name="tipo_pago" value="cash">
             <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
-            <input type="hidden" name="pago" value="<?= $totalPago; ?>">
+            <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
+            <input type="hidden" name="id" value="<?= $id_conekta; ?>">
         <button type="submit" class="btn btn-default">Generar</button>
     </form>
     </div>
