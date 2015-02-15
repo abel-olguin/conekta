@@ -66,23 +66,28 @@ class repositories_Master {
      * asi mismo para un redirect se crea extraen los valores de una session(que se creo en redirect)
      * ademas de que termina dicha session
      */
-    protected function set_view($view,$args = 'null')
+    protected function set_view($view, $args = 'null',$extract = false)
     {
 
-        if(!$args == 'null')
+        if($args != 'null')
         {
-            if(is_array($args))
+           
+            if(is_array($args) && $extract)
             {
+               
             extract($args);
+
+
+            }else
+            {
+                $$args = $args;
             }
         }
-        else if($_SESSION)
+        if($_SESSION['vars'])
         {
-
+            
             extract($_SESSION['vars']);
-
-            session_start();
-            session_regenerate_id();
+           
             session_destroy();
         }
         if($this->values)
@@ -105,14 +110,60 @@ class repositories_Master {
      * se guardan en una sesion para posteriormente ser destruidas
      * al llegar a la vista
      */
-    protected function redirect_run($set,array $vars)
+    protected function redirect_run($set,array $vars=null)
     {
-        session_start();
+        if(!empty($vars))
+        {
+            session_start();
         $_SESSION['vars'] = $vars;
 
-        header("Location: inscripcion.php?set=controllers_Content&run=$set");
+        }
+        
+        echo "<script language='javascript'>window.location='inscripcion.php?set=controllers_Content&run=$set'</script>;";
+        /*header("Location: inscripcion.php?set=controllers_Content&run=$set");*/ //forma de hacerlo en test
 
         die();
+    }
+
+    /**
+    * Crear variable de session
+    *
+    * Funcion encargada de crear una variable de session con lo que se le manda
+    *
+    */
+    protected function create_session(array $vars)
+    {
+        if(!empty($vars))
+        {
+            session_start();
+ 
+            $_SESSION[array_keys($vars)[0]] = $vars[array_keys($vars)[0]];
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    protected function get_session($name)
+    {
+        session_start();
+
+        if($_SESSION[$name])
+        {
+            $result = $_SESSION["$name"];
+
+            session_destroy();
+
+            return $result;
+           
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

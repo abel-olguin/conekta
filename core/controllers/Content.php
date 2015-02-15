@@ -135,7 +135,8 @@ class controllers_Content extends repositories_Master{
             $this->repositories_ConektaFunctions->set_origen($conekta_get['data']['origen']);
             $this->repositories_ConektaFunctions->set_status($conekta_get['data']['status']);
 
-            $this->redirect_run('succes',array_merge($result,array('id'=>$_POST['id'])));
+            $this->create_session(['all_vars'=>array_merge($result,array('id'=>$_POST['id']))]);
+            $this->redirect_run('succes');
         }
         else
         {
@@ -145,8 +146,28 @@ class controllers_Content extends repositories_Master{
 
     public function succes()
     {
+        $vars = $this->get_session('all_vars');
 
-                $this->set_view('success');
+        
+        switch($vars["origen"]) {
+             case 'cash':
+                $this->set_view('oxxo',$vars,true);
+                break;
+            case 'bank':
+                $this->set_view('banorte',$vars,true);
+                break;
+
+            case 'card':
+                if ($status == "paid") {
+                    $this->set_view('tcPaid',$vars,true);
+                } else {
+                    $this->set_view('tc',$vars,true);
+                }
+                break;
+            default:
+                $this->set_view('default',$vars,true);
+                break;
+        }
 
     }
 

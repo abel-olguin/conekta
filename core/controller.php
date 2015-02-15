@@ -25,7 +25,8 @@ if($_GET){
         }
 
 }else{
-    header("Location: ?set=controllers_Content&run=home");
+    echo "<script language='javascript'>window.location='inscripcion.php?set=controllers_Content&run=home'</script>;";
+
 }
 
 
