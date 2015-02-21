@@ -1,12 +1,5 @@
 <?php
 
-/**
-
- * Archivo encargado del registro, la instancia de la clase Core es solo para crear los selects de la edad
- *
- *
- **/
-
 require_once('settings.php');
 require_once('conexion.php');
 
@@ -21,6 +14,7 @@ if($_GET){
         if (is_callable(array($obj,$funcion))) {
             $obj->$funcion();
         } else {
+
             var_dump(array('message' => '404'));
         }
 
@@ -33,12 +27,14 @@ if($_GET){
 function __autoload($class_name)
 {
 
+
     $filename = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
 
     $file = ROOT.$filename;
 
     if ( ! file_exists($file))
     {
+        echo $class_name;
         var_dump(array('message'=>'404'));
         die();
     }else{

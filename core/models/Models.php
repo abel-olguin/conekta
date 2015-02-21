@@ -6,7 +6,8 @@
  * Time: 09:30 PM
  */
 
-class models_Models extends \Core{
+class models_Models
+{
 
     /**
      * @param $args
@@ -22,68 +23,102 @@ class models_Models extends \Core{
     public function insert(array $args)
     {
 
-        $table   = static::$table_name;
+        $table = static::$table_name;
 
-        $now     = date('d-m-Y :: H:m:s');
-        $columns = implode(",",array_keys($args));
-        $values  = [];
-        $vars    = array_values($args);
+        $now = date('d-m-Y :: H:m:s');
+        $columns = implode(",", array_keys($args));
+        $values = [];
+        $vars = array_values($args);
 
-        for($i = 0; $i<=count($vars)-1; $i++)
-        {
-            $var = $GLOBALS['conexion']->real_escape_string($vars[$i]);
+        for ($i = 0; $i <= count($vars) - 1; $i++) {
+            $var = $vars[$i];
 
-            $var = is_string($var)?("'".$var."'"):$var;
+            $var = is_string($var) ? ("'" . $var . "'") : $var;
 
-            array_push($values,$var);
+            array_push($values, $var);
         }
 
-        $values = implode(',',$values);
-        $sql    = "INSERT INTO $table($columns,created) VALUES ($values,'$now')";
+        $values = implode(',', $values);
+        $sql = "INSERT INTO $table($columns,created) VALUES ($values,'$now')";
 
-               if($GLOBALS['conexion']->query($sql))
-               {
-                   $id   = $GLOBALS['conexion']->insert_id;
-                   $args = array_merge($args,array('id'=>$id));
+        if ($GLOBALS['conexion']->query($sql)) {
+            $id = $GLOBALS['conexion']->insert_id;
+            $args = array_merge($args, array('id' => $id));
 
-                   $data = array('response'=>true,'values'=>$args);
-               }
-                else
-                {
-                    die('La insercion no se realizo: '.$GLOBALS['conexion']->connect_errno);
-                }
+            $data = array('response' => true, 'values' => $args);
+        } else {
+            die('La insercion no se realizo: ' . $GLOBALS['conexion']->connect_errno);
+        }
         return $data;
     }
 
-    public function update($id,array $args)
+    public function update($id, array $args)
     {
 
-        $table   = static::$table_name;
+        $table = static::$table_name;
 
 
         $columns = array_keys($args);
         $values  = [];
         $vars    = array_values($args);
 
-        for($i = 0; $i<=count($vars)-1; $i++)
-        {
-            $var = $GLOBALS['conexion']->real_escape_string($vars[$i]);
+        for ($i = 0; $i <= count($vars) - 1; $i++) {
+            $var = $vars[$i];
 
-            $var = is_string($var)?("'".$var."'"):$var;
+            $var = is_string($var) ? ("'" . $var . "'") : $var;
 
-             array_push($values,$columns[$i].'='.$var);
+            array_push($values, $columns[$i] . '=' . $var);
         }
 
-        $values = implode(',',$values);
-        $sql    = "UPDATE $table SET $values WHERE id LIKE '$id'";
 
-        if($GLOBALS['conexion']->query($sql))
-        {
-            $data = array('response'=>true,'values'=>$args);
+
+        $values = implode(',', $values);
+        $sql = "UPDATE $table SET $values WHERE id = $id";
+
+        if ($GLOBALS['conexion']->query($sql)) {
+            $data = array('response' => true, 'values' => $args);
+        } else {
+            die('La insercion no se realizo: ' . $GLOBALS['conexion']->connect_errno);
         }
-        else
+        return $data;
+    }
+
+    public function update_where($where,$args)
+    {
+        $table = static::$table_name;
+
+
+        $columns    = array_keys($args);
+        $values     = [];
+        $vars       = array_values($args);
+        $key_where  = array_keys($where);
+        $val_where  = array_values($where);
+
+
+        $arr_where  = array();
+        for ($i = 0; $i <= count($vars) - 1; $i++) {
+            $var = $vars[$i];
+
+            $var = is_string($var) ? ("'" . $var . "'") : $var;
+
+            array_push($values, $columns[$i] . '=' . $var);
+        }
+
+        for($i = 0; $i <= count($key_where)-1; $i++)
         {
-            die('La insercion no se realizo: '.$GLOBALS['conexion']->connect_errno);
+            $value = is_string($val_where[$i]) ? (" LIKE '" . $val_where[$i] . "'") : " = ".$val_where[$i];
+
+            array_push($arr_where,$key_where[$i] . $value );
+
+        }
+        $values    = implode(',', $values);
+        $str_where = implode('AND', $arr_where);
+        $sql = "UPDATE $table SET $values WHERE $str_where";
+
+        if ($GLOBALS['conexion']->query($sql)) {
+            $data = array('response' => true, 'values' => $args);
+        } else {
+            die('La insercion no se realizo: ' . $GLOBALS['conexion']->connect_errno);
         }
         return $data;
     }

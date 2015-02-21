@@ -53,7 +53,7 @@
 
         <button type="submit" class="btn btn-default">Enviar</button>
         <input type="hidden" name="tipo_pago" value="card">
-        <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
+        <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
         <input type="hidden" name="correo" value="<?= $correo; ?>">
         <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
         <input type="hidden" name="nivel" value="<?= $nivelJuego; ?>">
@@ -64,7 +64,7 @@
     <form action="inscripcion.php?set=controllers_Content&run=guardar_pago" method="POST" id="cash-form-banorte" >
     <img src="images/banorte.png" style="width:100px;padding:10px 5px;"><br>
         <input type="hidden" name="tipo_pago" value="bank">
-            <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
+            <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
             <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
             <input type="hidden" name="id" value="<?= $id_conekta; ?>">
@@ -75,7 +75,7 @@
 
             <img src="images/oxxo.png" style="padding:10px 5px;"><br>
             <input type="hidden" name="tipo_pago" value="cash">
-            <input type="hidden" name="nombre" value="<?= $nombre." ".$aPaterno." ".$aMaterno; ?>">
+            <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
             <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
             <input type="hidden" name="id" value="<?= $id_conekta; ?>">

@@ -7,7 +7,7 @@
 **/
 require_once("conekta/lib/Conekta.php");
 require_once("conexion.php");
-require_once("Core.php");
+
 
 
 Conekta::setApiKey(privateKey);//private key

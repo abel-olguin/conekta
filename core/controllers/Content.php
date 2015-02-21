@@ -52,6 +52,8 @@ class controllers_Content extends repositories_Master{
      */
     public function registrar()
     {
+
+
         if($_POST)
         {
 
@@ -60,8 +62,8 @@ class controllers_Content extends repositories_Master{
             $data_user = array(
               'correo'           => $_POST['correo'],
               'nombre'           => $_POST['nombre'],
-              'apellido_paterno' => $_POST['aPaterno'],
-              'apellido_materno' => $_POST['aMaterno'],
+              'apellido_paterno' => $_POST['apellido_paterno'],
+              'apellido_materno' => $_POST['apellido_materno'],
               'fecha_nac'        => $_POST['dia'].'-'.$_POST['mes'].'-'.$_POST['anio'],
               'pais'             => $_POST['pais']
             );
@@ -80,7 +82,12 @@ class controllers_Content extends repositories_Master{
             $vars_conekta   = array('id_conekta'=>$insert_conekta['values']['id'],
                 'cantidad_pago'=>$insert_conekta['values']['cantidad_pago']);
 
-            $this->redirect_run('iniciar_pago',array_merge($insert_user['values'],$vars_conekta));
+            $mail = new controllers_Mails();
+
+            if($mail->send_inscripcion_mail($data_user['nombre'],$data_user['correo'])) {
+                $this->redirect_run('iniciar_pago', array_merge($insert_user['values'], $vars_conekta));
+            }
+            $this->redirect_run('iniciar_pago', array_merge($insert_user['values'], $vars_conekta));//debug localhost
 
 
         }
@@ -124,16 +131,22 @@ class controllers_Content extends repositories_Master{
                 'tipo_pago'     => $_POST['tipo_pago'],
                 'conekta_id'    => isset($_POST['conektaTokenId'])?$_POST['conektaTokenId']:''
             );
+            $efectivo = ($_POST['tipo_pago']=='cash' || $_POST['tipo_pago']=='bank')?1:0;
+            $tarjeta  = ($_POST['tipo_pago']=='card')?1:0;
 
             $conekta_get = $this->repositories_ConektaFunctions->procesa_pago($data_user);
 
             $this->models_Conekta->update($_POST['id'],$conekta_get['data']);
 
+            $this->models_Usuarios->update_where(['correo'=>$data_user['correo']],['efectivo'=>$efectivo,'tarjeta'=>$tarjeta]);
+
+            if($conekta_get['data']['status']=='paid')
+            {
+                $this->models_Usuarios->update_where(['correo'=>$data_user['correo']],['activo'=>1]);
+
+            }
             $result = array_merge($conekta_get['data'],$conekta_get['utils']);
             $result = array_merge($result,$data_user);
-
-            $this->repositories_ConektaFunctions->set_origen($conekta_get['data']['origen']);
-            $this->repositories_ConektaFunctions->set_status($conekta_get['data']['status']);
 
             $this->create_session(['all_vars'=>array_merge($result,array('id'=>$_POST['id']))]);
             $this->redirect_run('succes');
@@ -159,7 +172,12 @@ class controllers_Content extends repositories_Master{
 
             case 'card':
                 if ($status == "paid") {
-                    $this->set_view('tcPaid',$vars,true);
+                    $mail = new controllers_Mails();
+                    if($mail->send_paid_mail($vars['nombre'],$vars['correo']))
+                    {
+                        $this->set_view('tcPaid',$vars,true);
+                    }
+
                 } else {
                     $this->set_view('tc',$vars,true);
                 }

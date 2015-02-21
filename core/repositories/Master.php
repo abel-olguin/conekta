@@ -83,14 +83,14 @@ class repositories_Master {
                 $$args = $args;
             }
         }
-        if($_SESSION['vars'])
+        if(isset($_SESSION['vars']) )
         {
             
             extract($_SESSION['vars']);
            
             session_destroy();
         }
-        if($this->values)
+        if(isset($this->values))
         {
             extract($this->values);
         }
@@ -114,8 +114,7 @@ class repositories_Master {
     {
         if(!empty($vars))
         {
-            session_start();
-        $_SESSION['vars'] = $vars;
+            $_SESSION['vars'] = $vars;
 
         }
         

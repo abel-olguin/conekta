@@ -1,6 +1,4 @@
-<?php
-$data = new Core();
-?>
+
 <body>
 
 <!-- Inicia Registro -->
@@ -30,34 +28,40 @@ $data = new Core();
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-3"><label for="aPaterno">Apellido Paterno:</label></div>
-                            <div class="col-md-9"><input type="text" class="form-control" name="aPaterno" id="aPaterno"></div>
+                            <div class="col-md-3"><label for="apellido_paterno">Apellido Paterno:</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control" name="apellido_paterno" id="apellido_paterno"></div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-3"><label for="aMaterno">Apellido Materno:</label></div>
-                            <div class="col-md-9"><input type="text" class="form-control" name="aMaterno" id="aMaterno"></div>
+                            <div class="col-md-3"><label for="apellido_materno">Apellido Materno:</label></div>
+                            <div class="col-md-9"><input type="text" class="form-control" name="apellido_materno" id="apellido_materno"></div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-3"><label for="dia">Fecha de nacimiento:</label></div>
                             <div class="col-md-3"><select id="dia" name="dia" class="form-control">
                                     <option value="-" selected>Día</option>
-                                    <?php $data -> getOptionDay(); ?>
+                                    <?php for($i = 1; $i <= 31 ; $i++):?>
+                                    <?= "<option value='$i'>$i</option>"?>
+                                    <?php endfor; ?>
                                 </select></div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-3"><select name="mes" id="mes" class="form-control">
                                     <option value="-" selected>Mes</option>
-                                    <?php $data -> getOptionMonth(); ?>
+                                    <?php for($i = 1; $i <= 12 ; $i++):?>
+                                        <?= "<option value='$i'>$i</option>"?>
+                                    <?php endfor; ?>
                                 </select></div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-3"><select name="anio" id="anio" class="form-control">
                                     <option value="-" selected>Año</option>
-                                    <?php $data -> getOptionYear(); ?>
+                                    <?php for($i = 1930; $i <= 1998 ; $i++):?>
+                                        <?= "<option value='$i'>$i</option>"?>
+                                    <?php endfor; ?>
                                 </select></div>
                         </div>
                         <div class="clear"></div>
