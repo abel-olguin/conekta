@@ -131,13 +131,11 @@ class controllers_Content extends repositories_Master{
                 'tipo_pago'     => $_POST['tipo_pago'],
                 'conekta_id'    => isset($_POST['conektaTokenId'])?$_POST['conektaTokenId']:''
             );
-            $efectivo = ($_POST['tipo_pago']=='cash' || $_POST['tipo_pago']=='bank')?1:0;
-            $tarjeta  = ($_POST['tipo_pago']=='card')?1:0;
-
+            $efectivo    = ($_POST['tipo_pago']=='cash' || $_POST['tipo_pago']=='bank')?1:0;
+            $tarjeta     = ($_POST['tipo_pago']=='card')?1:0;
             $conekta_get = $this->repositories_ConektaFunctions->procesa_pago($data_user);
 
             $this->models_Conekta->update($_POST['id'],$conekta_get['data']);
-
             $this->models_Usuarios->update_where(['correo'=>$data_user['correo']],['efectivo'=>$efectivo,'tarjeta'=>$tarjeta]);
 
             if($conekta_get['data']['status']=='paid')
@@ -157,6 +155,12 @@ class controllers_Content extends repositories_Master{
         }
     }
 
+    /**
+     * Selecciona la vista acorde al metodo de pago
+     *
+     * Funcion encargada de traer vistas acorde al origen de pago
+     *
+     */
     public function succes()
     {
         $vars = $this->get_session('all_vars');

@@ -33,7 +33,7 @@ class models_Models
         for ($i = 0; $i <= count($vars) - 1; $i++) {
             $var = $vars[$i];
 
-            $var = is_string($var) ? ("'" . $var . "'") : $var;
+            $var = is_string($var) ? "'".$GLOBALS['conexion']->real_escape_string($var)."'" : $var;
 
             array_push($values, $var);
         }
@@ -52,28 +52,56 @@ class models_Models
         return $data;
     }
 
+    /**
+     * @param $id
+     * @param array $args
+     * @return array
+     *
+     * Hacer un update a partir de un array
+     *
+     * Funcion encargadade hacer un update a una tabla recorriendo un
+     * array; es decir puede haber multiples campos a actualizar
+     */
     public function update($id, array $args)
     {
 
+        $table  = static::$table_name;
+        $update = $this->get_array_string($args,'=');
+
+
+        $sql = "UPDATE $table SET $update WHERE id = $id";
+
+        if ($GLOBALS['conexion']->query($sql)) {
+            $data = array('response' => true, 'values' => $args);
+        } else {
+            die('La actualizacion no se realizo: ' . $GLOBALS['conexion']->connect_errno);
+        }
+        return $data;
+    }
+
+
+
+    /**
+     * @param $where
+     * @param $args
+     * @return array
+     *
+     * parecida a update pero aqui el where es dinamico
+     *
+     * Funcion encargada de hacer un update a varios campos de la tabla
+     * donde where sea un array tambien
+     */
+    public function update_where($where,$args)
+    {
         $table = static::$table_name;
 
 
-        $columns = array_keys($args);
-        $values  = [];
-        $vars    = array_values($args);
-
-        for ($i = 0; $i <= count($vars) - 1; $i++) {
-            $var = $vars[$i];
-
-            $var = is_string($var) ? ("'" . $var . "'") : $var;
-
-            array_push($values, $columns[$i] . '=' . $var);
-        }
+        $values     = $this->get_array_string($args,'=');
+        $arr_where  = $this->get_array_string($where,'=','LIKE','AND');
 
 
 
-        $values = implode(',', $values);
-        $sql = "UPDATE $table SET $values WHERE id = $id";
+        $sql = "UPDATE $table SET $values WHERE $arr_where";
 
         if ($GLOBALS['conexion']->query($sql)) {
             $data = array('response' => true, 'values' => $args);
@@ -83,43 +111,72 @@ class models_Models
         return $data;
     }
 
-    public function update_where($where,$args)
+    /**
+     * @param $args
+     * @return mixed
+     * Busca un registro en base de datos
+     *
+     * Funcion encargada de retornar un registro de base de datos acorde a un array
+     */
+    public function find_where($args)
     {
-        $table = static::$table_name;
+        $table   = static::$table_name;
+
+        $where   = $this->get_array_string($args,'AND');
+
+        $sql    = "SELECT * FROM $table WHERE $where";
+        $result = $this->get_result($sql);
+
+        return $result;
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     * Convierte una consulta en array asociativo
+     *
+     * Funcion encargada de retornar un array asociativo
+     * de una consulta
+     */
+    private function get_result($query)
+    {
+        $array  = $GLOBALS['conexion']->query($query);
+
+        $result = $array->fetch_array(MYSQLI_ASSOC);
+
+        return $result;
+    }
 
 
-        $columns    = array_keys($args);
-        $values     = [];
-        $vars       = array_values($args);
-        $key_where  = array_keys($where);
-        $val_where  = array_values($where);
+    /********************************************************************************************
+     *                              funciones privadas
+     *******************************************************************************************/
 
 
-        $arr_where  = array();
-        for ($i = 0; $i <= count($vars) - 1; $i++) {
-            $var = $vars[$i];
+    /**
+     * @param $array
+     * @param $separator
+     * @return string
+     *
+     * genera un string a partir de un array
+     *
+     * Funcion encargada de convertir un array
+     * a una cadena de texto "llave separador valor" ej "nombre = juan"
+     */
+    private function get_array_string($array,$separator,$like = '=',$delimiter = ',')
+    {
+        $keys   = array_keys($array);
+        $values = array_values($array);
+        $result = array();
 
-            $var = is_string($var) ? ("'" . $var . "'") : $var;
+        for ($i = 0; $i <= count($values) - 1; $i++) {
+            $var = $values[$i];
 
-            array_push($values, $columns[$i] . '=' . $var);
+            $var = is_string($var) ? " $like '".$GLOBALS['conexion']->real_escape_string($var)."'" : " $separator ".$var;
+
+            array_push($result, $keys [$i] . $var);
         }
 
-        for($i = 0; $i <= count($key_where)-1; $i++)
-        {
-            $value = is_string($val_where[$i]) ? (" LIKE '" . $val_where[$i] . "'") : " = ".$val_where[$i];
-
-            array_push($arr_where,$key_where[$i] . $value );
-
-        }
-        $values    = implode(',', $values);
-        $str_where = implode('AND', $arr_where);
-        $sql = "UPDATE $table SET $values WHERE $str_where";
-
-        if ($GLOBALS['conexion']->query($sql)) {
-            $data = array('response' => true, 'values' => $args);
-        } else {
-            die('La insercion no se realizo: ' . $GLOBALS['conexion']->connect_errno);
-        }
-        return $data;
+        return implode($delimiter,$result);
     }
 } 

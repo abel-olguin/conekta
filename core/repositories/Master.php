@@ -148,7 +148,7 @@ class repositories_Master {
 
     protected function get_session($name)
     {
-        session_start();
+
 
         if($_SESSION[$name])
         {
