@@ -41,7 +41,7 @@ $.validator.addMethod("valueNotEquals", function(value, element, arg){
 
 </script>
 
-<body>
+<body class="col-md-12">
 
 
 	<header>

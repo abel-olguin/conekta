@@ -96,8 +96,8 @@ class models_Models
         $table = static::$table_name;
 
 
-        $values     = $this->get_array_string($args,'=');
-        $arr_where  = $this->get_array_string($where,'=','LIKE','AND');
+        $values     = $this->get_array_string($args,'AND');
+        $arr_where  = $this->get_array_string($where,'AND');
 
 
 
@@ -125,6 +125,27 @@ class models_Models
         $where   = $this->get_array_string($args,'AND');
 
         $sql    = "SELECT * FROM $table WHERE $where";
+
+        $result = $this->get_result($sql);
+
+        return $result;
+    }
+
+    /**
+     * @param $args
+     * @return mixed
+     *
+     * Contrario de find where este solo debe tener un argumento
+     */
+    public function find($camp,$where)
+    {
+        $table   = static::$table_name;
+        if(is_string($where))
+        {
+            $where = "'".$where."'";
+        }
+        $sql    = "SELECT * FROM $table WHERE $camp = $where";
+
         $result = $this->get_result($sql);
 
         return $result;
@@ -140,9 +161,13 @@ class models_Models
      */
     private function get_result($query)
     {
-        $array  = $GLOBALS['conexion']->query($query);
 
-        $result = $array->fetch_array(MYSQLI_ASSOC);
+        $array  = $GLOBALS['conexion']->query($query);
+        $result = array();
+        while($data = $array->fetch_assoc())
+        {
+            $result[] = $data;
+        }
 
         return $result;
     }
@@ -163,20 +188,19 @@ class models_Models
      * Funcion encargada de convertir un array
      * a una cadena de texto "llave separador valor" ej "nombre = juan"
      */
-    private function get_array_string($array,$separator,$like = '=',$delimiter = ',')
+    private function get_array_string($array,$delimiter = ',')
     {
         $keys   = array_keys($array);
         $values = array_values($array);
         $result = array();
 
         for ($i = 0; $i <= count($values) - 1; $i++) {
-            $var = $values[$i];
 
-            $var = is_string($var) ? " $like '".$GLOBALS['conexion']->real_escape_string($var)."'" : " $separator ".$var;
-
-            array_push($result, $keys [$i] . $var);
+            $val      = $values[$i];
+            $string   = is_numeric($val)? " = ".$val:" LIKE '".$val."'";
+            $result[] = $keys[$i].$string;
         }
 
-        return implode($delimiter,$result);
+        return implode(' '.$delimiter.' ',$result);
     }
 } 

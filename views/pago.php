@@ -56,7 +56,6 @@
         <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
         <input type="hidden" name="correo" value="<?= $correo; ?>">
         <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
-        <input type="hidden" name="nivel" value="<?= $nivelJuego; ?>">
         <input type="hidden" name="id" value="<?= $id_conekta; ?>">
     </form>
     <!-- termina el form tarjeta e inicia el de pago en efectivo-->

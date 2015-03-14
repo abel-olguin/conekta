@@ -78,7 +78,13 @@ class repositories_Master {
             extract($args);
 
 
-            }else
+            }
+            elseif(is_array($args)&&count(array_keys($args))==1)
+            {
+
+                extract($args);
+            }
+            else
             {
                 $$args = $args;
             }
@@ -161,6 +167,15 @@ class repositories_Master {
         }
         else
         {
+            return false;
+        }
+    }
+
+    protected function verify_session()
+    {
+        if (isset($_COOKIE['id_user'])){
+            return $_COOKIE['id_user'];
+        }else{
             return false;
         }
     }

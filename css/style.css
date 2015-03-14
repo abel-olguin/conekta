@@ -632,3 +632,17 @@ cursor: pointer;
 #cash-form {
   display: none;
 }
+
+.imagen_producto{
+    height: 300px;
+
+}
+
+.producto{
+    border: solid 1px #adadad;
+}
+
+.producto:hover{
+    box-shadow: 0px 1px 7px #000000;
+}
+

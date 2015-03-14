@@ -29,6 +29,9 @@ define('tblUsers', 'tbl_usuarios');
 /** Tabla Conekta **/
 define('tblConekta', 'tbl_conekta');
 
+/** Tabla Productos **/
+define('tblProductos', 'tbl_articulos');
+
 /** precio **/
 define('precio', 50);
 /** public key **/
