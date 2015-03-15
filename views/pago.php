@@ -59,7 +59,7 @@
             <label>
                 <div class="col-md-6"><span>Este producto cuenta con meses sin intereses</span></div>
                 <div class="col-md-3">
-                    <select name="meses">
+                    <select name="meses" id="meses">
                         <option value="">--Elige una opcion--</option>
                         <?php foreach($meses as $mes): ?>
                         <option value="<?= $mes?>"> <?= $mes ?> meses sin intereses</option>
@@ -75,7 +75,7 @@
                 <label>
                     <div class="col-md-6"><span>Puedes usar un cupon promocional</span></div>
                     <div class="col-md-3">
-                        <input type="text" name="cupon" class="cupon">
+                        <input type="text" name="cupon" class="cupon" id="cupon_tc">
                     </div>
                 </label>
             </div>

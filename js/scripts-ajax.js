@@ -9,7 +9,11 @@ $(document).ready(function(){
             event.preventDefault();
             var $form;
             $form = $(this);
-            checkcode($form);
+            if($form.find('.cupon').val())
+            {
+                checkcode($form);
+            }
+
             return false;
         });
         $('#cash-form-banorte').submit(function(event) {

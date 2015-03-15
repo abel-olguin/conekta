@@ -112,4 +112,98 @@ class repositories_ConektaFunctions
     }
 
 
+
+    public function procesa_mensualidades($values)
+    {
+        Conekta::setApiKey(privateKey);//private key
+
+        $id_producto        = $values['producto']['id'];
+        $codigo_producto    = $values['producto']['clave'];
+        $plan               = array();
+        $costo              = $values['producto']['precio'];
+        $meses              = $values['meses'];
+        $producto           = $codigo_producto;
+        $nombre_plan        = str_replace(' ','-',$producto).'-'.$meses.'-meses-'.$costo;//cadena para nombrar el plan
+        $card_token         = $values['conekta_id'];
+        $tipo_pago          = $values['tipo_pago'];
+        $mes                = is_float(($costo*100)/$meses)?ceil(($costo*100)/$meses):($costo*100)/$meses;
+        $mes_fix            = substr((string)$mes,0,count((string)$mes)-3).'.'.substr((string)$mes,-2, 2);
+        /************************* ----variables para el plan---- ******************************/
+
+
+        /************************* ----variables para la inscripcion---- ******************************/
+        $nombre            = $values['nombre'];
+        $correo            = $values['correo'];
+
+        /************************* ----variables para la inscripcion---- ******************************/
+
+        try
+        {
+            $plan = Conekta_Plan::find($nombre_plan);
+
+
+
+
+        }
+        catch (Exception $e)
+        {
+
+
+            /********************** --- crear plan --- *****************/
+            $plan = Conekta_Plan::create(array(
+                'id'                => $nombre_plan,//identificador del plan
+                'name'              => str_replace('-',' ',$nombre_plan),//descripcion o nombre que se muestra
+                'amount'            => $mes,//monto mensual
+                'currency'          => "MXN",//denominacion
+                'interval'          => "month",//tipo de cobro(mensual semanal etc)
+                'frequency'         => 1,//cada cuanto(puede ser cada 2 meses etc
+                'trial_period_days' => 30,//tiempo que estara disponible el plan
+                'expiry_count'      => $meses//cantidad de meses que se hara el cobro
+            ));
+            /********************** --- crear plan --- *****************/
+
+        }
+
+        /********************** --- crear cliente --- **********************/
+        $customer = Conekta_Customer::create(
+            array(
+                'name'  => $nombre,
+                'email' => $correo,
+                'cards' => array($card_token),
+                'plan'  => $nombre_plan)
+        );
+
+
+        $cliente    = json_decode($customer,true);
+        $id_cliente = $cliente['id'];//base de datos
+
+        /********************** --- crear cliente --- ***********************/
+
+        /********************** --- asociar cliente con plan --- **********************/
+        $customer     = Conekta_Customer::find($id_cliente);
+        $subscription = $customer->createSubscription(//se asocian
+            array(
+                'plan' => $nombre_plan
+            )
+        );
+
+        $subscript    = json_decode($subscription,true);
+        $id_subscript = $subscript['id'];//obtenemos id
+
+        $input = array(
+            'id_subscripcion' => $id_subscript,
+            'id_cliente'      => $id_cliente,
+            'correo'          => $correo,
+            'cantidad_pago'   => $mes_fix.' X '.$meses,
+            'id_producto'     => $id_producto,
+            'origen'          => 'card'
+        );
+
+
+
+            return array('data'=>$input,'utils'=>['status'=>'paid']);//retornamos lo que se usara en vista
+
+
+    }
+
 }

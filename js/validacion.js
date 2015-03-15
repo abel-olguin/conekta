@@ -101,6 +101,26 @@ $('#card-form').validate({
             onkeyup : false  
         });
 
+   $(function(){
+       $('#meses').change(function () {
+
+           if($(this).val() && $('#cupon-tc').val())
+           {
+
+               $('#cupon_tc').val('');
+               alert('No puedes usar un cupon si usas meses sin intereses')
+           }
+       });
+
+       $('#cupon_tc').blur(function() {
+           if($(this).val() && $('#meses').val())
+           {
+               $('#meses').val('');
+               alert('No puedes usar un cupon si usas meses sin intereses')
+           }
+       });
+   });
+
 
 }); /*fin de document ready*/
 

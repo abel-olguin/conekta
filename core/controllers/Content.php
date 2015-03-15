@@ -169,6 +169,7 @@ class controllers_Content extends repositories_Master{
             $costo    = $producto[0]['precio'];
             $meses    = array();
             $cupones  = 0;
+
             for($i = 0; $i < count($meses_a) ; $i++)
             {
                 if(($costo/$meses_a[$i])>10)
@@ -178,7 +179,7 @@ class controllers_Content extends repositories_Master{
             }
             if($producto[0]['cupones'])
             {
-                $cupones = $this->check_cupones($_POST['id_producto'])?1:0;
+                $cupones  = $this->check_cupones($_POST['id_producto'])?1:0;
             }
             $data_conekta = array(
                 'correo'          => $usuario[0]['correo'],
@@ -216,9 +217,9 @@ class controllers_Content extends repositories_Master{
         if($_POST)
         {
             $this->set_view('loading');
-            if(isset($_POST['mensualidades'])&&$_POST['mensualidades']!='')
+            if(isset($_POST['meses'])&&$_POST['meses']!='')
             {
-
+                $this->pago_mensual($_POST);
             }
             else
             {
@@ -231,6 +232,60 @@ class controllers_Content extends repositories_Master{
         }
     }
 
+    private function pago_mensual($data)
+    {
+        $producto   = $this->models_Productos->find('id',$data['producto']);
+        $precio     = (int)$producto[0]['precio']."00";
+        $nombre     = $data['nombre'];
+        $correo     = $data['correo'];
+
+        $submit       = array(
+                'producto'      => $producto[0],
+                'meses'         => $data['meses'],
+                'conekta_id'    => $data['conektaTokenId'],
+                'tipo_pago'     => $data['tipo_pago'],
+                'nombre'        => $data['nombre'],
+                'correo'        => $data['correo'],
+                'origen'        => 'card'
+        );
+
+        $get = $this->repositories_ConektaFunctions->procesa_mensualidades($submit);
+
+
+
+        if(!empty($get))
+        {
+            $add = array(
+                'id_transaccion'  => 'NULL',
+                'reference'       => 'NULL',
+                'barcode'         => 'NULL',
+                'barcode_url'     => 'NULL',
+                'service_number'  => 'NULL',
+                'status'          => 1
+            );
+
+
+            $this->models_Conekta->insert(array_merge($get['data'],$add));
+
+            $send   = compact('nombre','correo');
+            //$mail->send_mail_succes_pay($send);  //enviamos un mail
+            $vars = array(
+
+            );
+            $this->create_session(['all_vars'=>array_merge($submit,$get['utils'])]);
+            $this->redirect_run('succes');
+        }
+
+    }
+
+    /**
+     * @param $data
+     *
+     * Procesa sin meses
+     *
+     * Funcion encargada de procesar un pago que no
+     * requiere meses sin intereses
+     */
     private function pago_gral($data)
     {
         $producto   = $this->models_Productos->find('id',$data['producto']);
@@ -282,7 +337,7 @@ class controllers_Content extends repositories_Master{
     {
         $vars = $this->get_session('all_vars');
 
-        
+
         switch($vars["origen"]) {
              case 'cash':
                 $this->set_view('oxxo',$vars,true);
@@ -292,7 +347,7 @@ class controllers_Content extends repositories_Master{
                 break;
 
             case 'card':
-                if ($status == "paid") {
+                if ($vars["status"] == "paid") {
                     $mail = new controllers_Mails();
                     if($mail->send_paid_mail($vars['nombre'],$vars['correo']))
                     {
@@ -313,29 +368,36 @@ class controllers_Content extends repositories_Master{
     public function verify_cupon_ajax()
     {
         $cupon  = $_POST['cupon'];
-
-        $check  = $this->models_Cupones->find_where(['codigo'=>$cupon,'deleted'=>0,'status'=>0]);
-
-        $result = array();
-        if(isset($check[0])&&!empty($check[0]))
+        if(!empty($cupon))
         {
-            $this->models_Cupones->update($check[0]['id'],['status'=>1]);
-            $result = ['response'=>'ok','value'=>$check[0]['descuento']];
-        }
-        else
-        {
-            $check  = $this->models_Cupones->find_where(['codigo'=>$cupon,'deleted'=>0,'status'=>1]);
+
+            $check  = $this->models_Cupones->find_where(['codigo'=>$cupon,'deleted'=>0,'status'=>0]);
+
+            $result = array();
             if(isset($check[0])&&!empty($check[0]))
             {
-                $result = ['response'=>'error','message'=>'El codigo ya fue usado'];
+                $this->models_Cupones->update($check[0]['id'],['status'=>1]);
+                $result = ['response'=>'ok','value'=>$check[0]['descuento']];
             }
             else
             {
-                $result = ['response'=>'error','message'=>'El codigo es incorrecto'];
+                $check  = $this->models_Cupones->find_where(['codigo'=>$cupon,'deleted'=>0,'status'=>1]);
+                if(isset($check[0])&&!empty($check[0]))
+                {
+                    $result = ['response'=>'error','message'=>'El codigo ya fue usado'];
+                }
+                else
+                {
+                    $result = ['response'=>'error','message'=>'El codigo es incorrecto'];
+                }
+
             }
 
         }
-
+        else
+        {
+            $result = ['response'=>'ok','value'=>0];
+        }
         echo json_encode($result);
     }
 
