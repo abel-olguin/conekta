@@ -17,6 +17,7 @@
             <option value="-" selected>Elige una opcion</option>
             <option value="tc">Tarjeta de credito</option>
             <option value="efectivo">Efectivo</option>
+
         </select>
     </div>
     <!-- tarjeta de credito-->
@@ -53,12 +54,38 @@
             </label>
         </div>
 
+        <?php if($mensualidades): ?>
+        <div class="form-row">
+            <label>
+                <div class="col-md-6"><span>Este producto cuenta con meses sin intereses</span></div>
+                <div class="col-md-3">
+                    <select name="meses">
+                        <option value="">--Elige una opcion--</option>
+                        <?php foreach($meses as $mes): ?>
+                        <option value="<?= $mes?>"> <?= $mes ?> meses sin intereses</option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </label>
+        </div>
+        <?php endif; ?>
+
+        <?php if($cupones): ?>
+            <div class="form-row">
+                <label>
+                    <div class="col-md-6"><span>Puedes usar un cupon promocional</span></div>
+                    <div class="col-md-3">
+                        <input type="text" name="cupon" class="cupon">
+                    </div>
+                </label>
+            </div>
+        <?php endif; ?>
         <button type="submit" class="btn btn-default">Enviar</button>
         <input type="hidden" name="tipo_pago" value="card">
         <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
         <input type="hidden" name="correo" value="<?= $correo; ?>">
-        <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
-        <input type="hidden" name="id" value="<?= $id_conekta; ?>">
+        <input type="hidden" name="producto" value="<?= $id_producto; ?>">
+
     </form>
     <!-- termina el form tarjeta e inicia el de pago en efectivo-->
     <div id="cash-form">
@@ -67,8 +94,17 @@
         <input type="hidden" name="tipo_pago" value="bank">
             <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
-            <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
-            <input type="hidden" name="id" value="<?= $id_conekta; ?>">
+            <input type="hidden" name="producto" value="<?= $id_producto; ?>">
+            <?php if($cupones): ?>
+                <div class="form-row">
+                    <label>
+                        <div class="col-md-6"><span>Puedes usar un cupon promocional</span></div>
+                        <div class="col-md-3">
+                            <input type="text" name="cupon" class="cupon">
+                        </div>
+                    </label>
+                </div>
+            <?php endif; ?>
         <button type="submit" class="btn btn-default">Generar</button>
     </form>
 
@@ -78,8 +114,18 @@
             <input type="hidden" name="tipo_pago" value="cash">
             <input type="hidden" name="nombre" value="<?= $nombre." ".$apellido_paterno." ".$apellido_materno; ?>">
             <input type="hidden" name="correo" value="<?= $correo; ?>">
-            <input type="hidden" name="cantidad_pago" value="<?= $cantidad_pago; ?>">
-            <input type="hidden" name="id" value="<?= $id_conekta; ?>">
+            <input type="hidden" name="producto" value="<?= $id_producto; ?>">
+
+        <?php if($cupones): ?>
+            <div class="form-row">
+                <label>
+                    <div class="col-md-6"><span>Puedes usar un cupon promocional</span></div>
+                    <div class="col-md-3">
+                        <input type="text" name="cupon" class="cupon">
+                    </div>
+                </label>
+            </div>
+        <?php endif; ?>
         <button type="submit" class="btn btn-default">Generar</button>
     </form>
     </div>

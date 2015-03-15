@@ -1,7 +1,7 @@
 <div class=" col-xs-8 col-lg-8 col-md-8 col-xs-offset-2 col-lg-offset-2 col-md-offset-2" style="font-size:14px; background:#fff !important;">
 <div class="col-md-12">
 <div class="col-md-12 tituloStatus"><strong> Gracias, <?= ucwords ($nombre); ?>:</strong>
-<span> Te sera enviado un mail al correo que registraste dentro de los tres días hábiles y posteriores a que realices tu pago.</span></div>
+<span> Te sera enviado un mail de confirmacion de pago al correo que registraste dentro de los tres días hábiles y posteriores a que realices tu pago.</span></div>
 
 					
 
@@ -68,7 +68,7 @@
 
 					<div class="col-md-12 tituloContenedor">
 
-						*IMPRIME Y GUARDA ESTA PAGINA COMO COMPROBANTE DE REGISTRO Y PRESÉNTALO JUNTO CON TU RECIBO DE PAGO O DEPOSITO PARA PARTICIPAR DEL SEMINARIO.
+						*IMPRIME Y GUARDA ESTA PAGINA PARA PRESENTARLA EN LAS TIENDAS OXXO
 
 					</div>
 
@@ -78,7 +78,7 @@
 						<p>*SI NO RECIBIMOS TU PAGO, TU REGISTRO QUEDARA CANCELADO.</p>
 
 
-						<p>*Los datos que ingresaste y registramos para enviarte un email de confirmaci&oacute;n de participación: </p>
+						<p>*Los datos que ingresaste y registramos para enviarte un email de confirmaci&oacute;n de pago: </p>
 
 
 

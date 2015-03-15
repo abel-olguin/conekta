@@ -26,7 +26,7 @@
                 <p><strong>Pecio: $<?= $producto['precio']; ?></strong></p>
             </div>
 
-            <form id="frm_producto" action="inscripcion.php?set=controllers_Content&run=procesa_pedido" method="post">
+            <form id="frm_producto" action="inscripcion.php?set=controllers_Content&run=iniciar_pago" method="post">
                 <input type="hidden" name="id_producto" id="id_producto" value="<?= $producto['id']; ?>">
                 <button class="btn-danger btn_compra">Comprar</button>
             </form>

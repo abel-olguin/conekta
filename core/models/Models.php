@@ -118,15 +118,15 @@ class models_Models
      *
      * Funcion encargada de retornar un registro de base de datos acorde a un array
      */
-    public function find_where($args)
+    public function find_where($args,$limit = 0)
     {
-        $table   = static::$table_name;
+        $table          = static::$table_name;
+        $limit_string   = $limit != 0 ?"LIMIT $limit":'';
+        $where          = $this->get_array_string($args,'AND');
 
-        $where   = $this->get_array_string($args,'AND');
+        $sql            = "SELECT * FROM $table WHERE $where $limit_string";
 
-        $sql    = "SELECT * FROM $table WHERE $where";
-
-        $result = $this->get_result($sql);
+        $result         = $this->get_result($sql);
 
         return $result;
     }

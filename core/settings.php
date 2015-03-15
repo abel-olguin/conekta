@@ -1,4 +1,5 @@
 <?php
+/*mensualidades*/
 /**
 
 * Archivo de configuraciones aqui se crean todas las variables del sistemas
@@ -31,6 +32,9 @@ define('tblConekta', 'tbl_conekta');
 
 /** Tabla Productos **/
 define('tblProductos', 'tbl_articulos');
+
+/** Tabla Cupones **/
+define('tblCupones', 'tbl_cupones');
 
 /** precio **/
 define('precio', 50);

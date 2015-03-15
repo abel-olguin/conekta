@@ -25,7 +25,7 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] && !isset($_COOKIE['id_us
 	<script src="js/validacion.js"></script>
 	<script src="js/validar.js"></script>
 	<script src="js/validateAddMethods.js"></script>
-
+    <script src="js/scripts-ajax.js"></script>
 	<!-- conekta -->
 	<script src="https://conektaapi.s3.amazonaws.com/v0.3.0/js/conekta.js"></script>
 	<script src="js/scripts-conekta.js"></script>
