@@ -1,4 +1,10 @@
-<?php session_start();
+<?php
+session_start();
+if(isset($_SESSION['id_user']) && $_SESSION['id_user'] && !isset($_COOKIE['id_user']))
+{
+    setcookie('id_user',$_SESSION['id_user'],time() + 4800);
+}
+//setcookie('id_user',' ',time() + -4800);
 ?>
 <html lang="es">
 <head>
@@ -46,9 +52,9 @@ $.validator.addMethod("valueNotEquals", function(value, element, arg){
 
 	<header>
 		<div class="col-md-12 banner">
-			<img width="960" src="images/header.png">
+			<img class="img-responsive" src="images/header.png">
 		</div>
 	</header>
-
-	<article style="min-height: 800px;">
+    <div class="clear"></div>
+	<article class="pp_container">
 

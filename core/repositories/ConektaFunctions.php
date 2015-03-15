@@ -95,9 +95,9 @@ class repositories_ConektaFunctions
             'id_transaccion' => $charge->id,
             'status'         => $charge->status,
             'reference'      => $charge->reference_id,
-            'barcode'        => ($charge->payment_method->barcode)?$charge->payment_method->barcode:'',
-            'barcode_url'    => ($charge->payment_method->barcode_url)?$charge->payment_method->barcode_url:'',
-            'service_number' => ($charge->payment_method->service_number)?$charge->payment_method->service_number:'',
+            'barcode'        => isset($charge->payment_method->barcode)?$charge->payment_method->barcode:'',
+            'barcode_url'    => isset($charge->payment_method->barcode_url)?$charge->payment_method->barcode_url:'',
+            'service_number' => isset($charge->payment_method->service_number)?$charge->payment_method->service_number:'',
             'origen'         => $values['tipo_pago']
         );
 

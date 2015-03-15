@@ -585,13 +585,14 @@ cursor: pointer;
   display: none;
 }
 .footer {
-  background-color: #ee3424;
-  height: 70px;
-  margin-top: 5px;
-  margin-bottom: 0px;
+      background-color: rgba(94, 92, 100, 0.25);
+      height: 70px;
+      margin-top: 5px;
+      margin-bottom: 0px;
+      text-align: center;
 }
-.footer img {
-  padding: 5px;
+.footer p {
+  margin-top: 20px;
 }
 
 .patocinadores{
@@ -634,15 +635,59 @@ cursor: pointer;
 }
 
 .imagen_producto{
-    height: 300px;
+    height: 225px;
 
 }
-
+.container_gral{
+    margin-top: 5%;
+}
 .producto{
     border: solid 1px #adadad;
 }
 
 .producto:hover{
-    box-shadow: 0px 1px 7px #000000;
+    box-shadow: 1px 2px 10px #000000;
+}
+.btn_compra,.btn_login{
+    border-radius: 2px;
+    border: none;
+    width: 100%;
+    padding: 10px 0px;
+}
+.pp_container{
+    margin-top: 3%;
+    -webkit-box-shadow: -4px 15px 44px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: -4px 15px 44px -10px rgba(0,0,0,0.75);
+    box-shadow: -4px 15px 44px -10px rgba(0,0,0,0.75);
+    min-height: 800px;
 }
 
+.login
+{
+    background: rgba(213, 213, 213, 0.47);
+    border: solid #adadad;
+    border-radius: 5px;
+
+}
+
+.login p,.login button,.login label, .login input{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login input{
+    width: 100%;
+    height: 40px;
+    border: solid 1px #245269;
+    border-radius: 4px;
+}
+
+.registro_txt{
+    text-align: center;
+    background: #31708f;
+    font-size: 30px;
+    font-family: 'Courier New', Monospace;
+}
+.contenedor_registro{
+    background: rgba(8, 103, 146, 0.71);
+}

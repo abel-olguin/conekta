@@ -37,6 +37,6 @@ define('precio', 50);
 /** public key **/
 define('publicKey', '');
 /** private Key **/
-define('privateKey', '');
+define('privateKey', 'key_pxpRbAeDsPJCzK5yrAddsg');
 
 ?>

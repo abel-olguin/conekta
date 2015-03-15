@@ -25,7 +25,7 @@
 
 							<tr>
 								<td>ID verificacion:</td>
-								<td><?= id_transaccion;?></td>
+								<td><?= $id_transaccion;?></td>
 							</tr>
 							<tr>
 								<td>Beneficiario:</td>

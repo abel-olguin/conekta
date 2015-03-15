@@ -66,7 +66,7 @@ class models_Models
     {
 
         $table  = static::$table_name;
-        $update = $this->get_array_string($args,'=');
+        $update = $this->get_array_string($args,',','=');
 
 
         $sql = "UPDATE $table SET $update WHERE id = $id";
@@ -188,7 +188,7 @@ class models_Models
      * Funcion encargada de convertir un array
      * a una cadena de texto "llave separador valor" ej "nombre = juan"
      */
-    private function get_array_string($array,$delimiter = ',')
+    private function get_array_string($array,$delimiter = ',',$equals = '')
     {
         $keys   = array_keys($array);
         $values = array_values($array);
@@ -197,7 +197,8 @@ class models_Models
         for ($i = 0; $i <= count($values) - 1; $i++) {
 
             $val      = $values[$i];
-            $string   = is_numeric($val)? " = ".$val:" LIKE '".$val."'";
+            $s_equals = $equals == ''?(is_numeric($val)?" = ":" LIKE "): " $equals ";
+            $string   = is_numeric($val)? $s_equals.$val:$s_equals."'".$val."'";
             $result[] = $keys[$i].$string;
         }
 

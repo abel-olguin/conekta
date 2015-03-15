@@ -8,7 +8,7 @@
 
 ?>
 
-<article>
+<section class="col-md-10 col-md-offset-1 container-fluid container_gral">
 
     <?php
 
@@ -28,7 +28,7 @@
 
             <form id="frm_producto" action="inscripcion.php?set=controllers_Content&run=procesa_pedido" method="post">
                 <input type="hidden" name="id_producto" id="id_producto" value="<?= $producto['id']; ?>">
-                <button>Comprar</button>
+                <button class="btn-danger btn_compra">Comprar</button>
             </form>
         </div>
     </article>
@@ -37,4 +37,4 @@
     ?>
 
 
-</article>
+</section>

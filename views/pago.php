@@ -8,8 +8,10 @@
 ?>
 
 <!-- Inicia Registro -->
-<div class="col-md-offset-2 col-md-6 selectPago" id="pago" >
+<div class="col-md-offset-1 col-md-10 selectPago" id="pago" >
+
  <div class="col-md-12 tituloFormulario ">Estimado <?= ucwords ($nombre); ?>, selecciona tu forma de pago.</div>
+
     <div class="form-group">
         <select name="elegir-pago" id="elegir-pago" class="col-md-12 form-control">
             <option value="-" selected>Elige una opcion</option>
@@ -86,4 +88,3 @@
 
 
 </div> <!-- Termina Registro -->
-

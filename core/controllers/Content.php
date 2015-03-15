@@ -48,8 +48,15 @@ class controllers_Content extends repositories_Master{
 
     public function registro()
     {
-
-        $this->set_view('registro');
+        $user_id = $this->verify_session();
+        if(!$user_id)
+        {
+            $this->set_view('registro');
+        }
+        else
+        {
+            $this->redirect_run('home');
+        }
     }
 
     /**
@@ -118,7 +125,7 @@ class controllers_Content extends repositories_Master{
      */
     public function login()
     {
-        if(!$_COOKIE['id_user'])
+        if(!isset($_COOKIE['id_user']))
         {
             if($_POST)
             {
@@ -129,10 +136,9 @@ class controllers_Content extends repositories_Master{
 
                 $user = $this->models_Usuarios->find_where($data);
 
-                if(setcookie('id_user', $user[0]['id'], time() + 4800))
-                {
-                    $this->redirect_run('home');//debug localhost
-                }
+                $_SESSION['id_user'] = $user[0]['id'];
+
+                $this->redirect_run('home');//debug localhost
 
             }
             $this->set_view('login');
@@ -145,7 +151,10 @@ class controllers_Content extends repositories_Master{
 
     public function procesa_pedido()
     {
+        $this->set_view('loading');
+
         $user_id = $this->verify_session();
+
         if($user_id)
         {
             $producto = $this->models_Productos->find('id',$_POST['id_producto']);
@@ -213,12 +222,10 @@ class controllers_Content extends repositories_Master{
                 'tipo_pago'     => $_POST['tipo_pago'],
                 'conekta_id'    => isset($_POST['conektaTokenId'])?$_POST['conektaTokenId']:''
             );
-            $efectivo    = ($_POST['tipo_pago']=='cash' || $_POST['tipo_pago']=='bank')?1:0;
-            $tarjeta     = ($_POST['tipo_pago']=='card')?1:0;
+
             $conekta_get = $this->repositories_ConektaFunctions->procesa_pago($data_user);
 
             $this->models_Conekta->update($_POST['id'],$conekta_get['data']);
-            $this->models_Usuarios->update_where(['correo'=>$data_user['correo']],['efectivo'=>$efectivo,'tarjeta'=>$tarjeta]);
 
             if($conekta_get['data']['status']=='paid')
             {

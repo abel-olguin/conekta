@@ -173,7 +173,7 @@ class repositories_Master {
 
     protected function verify_session()
     {
-        if (isset($_COOKIE['id_user'])){
+        if (isset($_COOKIE['id_user'])&& $_COOKIE['id_user'] ){
             return $_COOKIE['id_user'];
         }else{
             return false;
