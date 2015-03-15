@@ -25,6 +25,11 @@ if($creator->connect_errno){
 	}else{
 		echo "Error en tabla Conekta";
 	}
+      if($creator->query(createCupones())){
+          echo "Tabla Cupones creada Exitosamente<br>";
+      }else{
+          echo "Error en tabla Cupones";
+      }
 	if($creator->query(createProducts())){
 		echo "Tabla Numeros creada Exitosamente<br>";
 	}else{
@@ -59,6 +64,11 @@ if($creator->connect_errno){
 	}else{
 		echo "Error en tabla Numeros";
 	}
+      if($creator->query(createCupones())){
+          echo "Tabla Cupones creada Exitosamente<br>";
+      }else{
+          echo "Error en tabla Cupones";
+      }
 	
 
   }
@@ -90,35 +100,53 @@ function createUsers(){
 function createConekta(){
 
 	$sql = "CREATE TABLE IF NOT EXISTS tbl_conekta (
-              id int(10) NOT NULL AUTO_INCREMENT,
-              id_transaccion varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-              id_producto int(10) NOT NULL,
-              correo varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-              barcode varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-              barcode_url varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-              status int(10) NOT NULL,
-              cantidad_pago varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-              reference varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-              service_number varchar(200) COLLATE utf8_spanish_ci NOT NULL,
-              pais varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-              origen varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-              created varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-              PRIMARY KEY (id)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=11"; 
+          id int(10) NOT NULL AUTO_INCREMENT,
+          id_transaccion varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+          id_producto int(10) NOT NULL,
+          correo varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+          barcode varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+          barcode_url varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+          status int(10) NOT NULL,
+          cantidad_pago varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+          reference varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+          service_number varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+          id_subscripcion varchar(250) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'NULL',
+          id_cliente varchar(250) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'NULL',
+          origen varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+          created varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+          PRIMARY KEY (id)
+        ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=30";
 
 	return $sql;
 }
 
+function createCupones(){
+
+    $sql = "CREATE TABLE IF NOT EXISTS tbl_cupones (
+              id int(10) NOT NULL AUTO_INCREMENT,
+              id_producto int(10) NOT NULL,
+              codigo varchar(250) NOT NULL,
+              descuento int(10) NOT NULL,
+              status tinyint(1) NOT NULL DEFAULT '0',
+              deleted tinyint(1) NOT NULL DEFAULT '0',
+              PRIMARY KEY (id)
+            ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ";
+    return $sql;
+}
+
 function createProducts(){
 	$sql = "CREATE TABLE IF NOT EXISTS tbl_articulos (
-              id int(10) NOT NULL AUTO_INCREMENT,
-              nombre varchar(250) NOT NULL,
-              imagen varchar(250) NOT NULL,
-              precio float NOT NULL,
-              clave varchar(200) NOT NULL,
-              deleted tinyint(1) NOT NULL,
-              PRIMARY KEY (id)
-            ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ";
+          id int(10) NOT NULL AUTO_INCREMENT,
+          nombre varchar(250) NOT NULL,
+          imagen varchar(250) NOT NULL,
+          descripcion text,
+          precio float NOT NULL,
+          clave varchar(200) NOT NULL,
+          mensualidades tinyint(1) NOT NULL DEFAULT '0',
+          cupones tinyint(1) NOT NULL DEFAULT '0',
+          deleted tinyint(1) NOT NULL,
+          PRIMARY KEY (id)
+        ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ";
 	return $sql;
 }
 

@@ -83,22 +83,13 @@ class controllers_Content extends repositories_Master{
                 'apellido_materno' => $_POST['apellido_materno'],
                 'genero'           => $_POST['genero'],
                 'fecha_nac'        => $_POST['dia'].'-'.$_POST['mes'].'-'.$_POST['anio'],
-                'pais'             => $_POST['pais']
+                'pais'             => $_POST['pais'],
+                'activo'           => 1
             );
 
-            /*$data_conekta = array(
-                'correo'          => $_POST['correo'],
-                'status'          => 0,
-                'cantidad_pago'   => precio,
-                'pais'            => $_POST['pais']
-            );*/
 
             $insert_user    = $this->models_Usuarios->insert($data_user);
 
-            /*$insert_conekta = $this->models_Conekta->insert($data_conekta);
-
-            $vars_conekta   = array('id_conekta'=>$insert_conekta['values']['id'],
-                'cantidad_pago'=>$insert_conekta['values']['cantidad_pago']);*/
 
             $mail = new controllers_Mails();
 

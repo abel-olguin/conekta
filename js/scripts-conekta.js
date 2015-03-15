@@ -1,5 +1,5 @@
 $(document).ready(function(){
-Conekta.setPublishableKey('key_AyQ5Vrm5Wm6ws2CHHD6dy7Q');
+Conekta.setPublishableKey('');
 });
 
     jQuery(function($) {
