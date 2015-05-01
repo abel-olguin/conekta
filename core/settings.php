@@ -39,8 +39,8 @@ define('tblCupones', 'tbl_cupones');
 /** precio **/
 define('precio', 50);
 /** public key **/
-define('publicKey', '');
+define('publicKey', 'tu key publica');
 /** private Key **/
-define('privateKey', 'key_pxpRbAeDsPJCzK5yrAddsg');
+define('privateKey', 'tu key privada');
 
 ?>
